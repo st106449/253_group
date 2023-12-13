@@ -1,0 +1,117 @@
+
+#include <iostream>
+#include <map>
+
+/*void A ()
+{
+    int n;
+    std::cin >>n;
+    std::map <int,int> M;
+    for(int i = 0; i < n; ++i)
+    {
+        int m;
+        std::cin >>m;
+        M[m]+=1;
+    }
+    std::map <int, int>::iterator i;
+for (i = M.begin(); i != M.end(); ++i)
+{
+    std::cout << i->first << " -> " << i->second << std::endl;
+}
+}*/
+std::map <int, int> B()
+{
+    int n;
+    std::cin >>n;
+    std::map <int, int> M;
+    for(int i = 0; i < n; ++i)
+    {
+        int m;
+        int k;
+        std::cin >>m;
+        std::cin >>k;
+        M[m] = k;
+    }
+    return M;
+}
+void C()
+{
+    std::map <int, int> M = B();
+    int n;
+    std::cin >>n;
+    std::map <int, int> N;
+    for(int i = 0; i < n; ++i)
+    {
+        int m;
+        std::cin>>m;
+        if(M.count(m))
+        {
+            N[m] = M[m];
+        }
+        else
+        {
+            N[m] = m;
+        }
+    }
+    for(auto [f,s]:N)
+    {
+        std::cout <<f << " -> " << s <<std::endl;
+    }
+}
+template<class T1, class T2>
+std::map <T1, T2> D(std::map <T1, T2> M, std::map <T1, T2> N)
+{
+    std::map <T1, T2> S;
+    
+    for(auto x:M)
+    {
+        S[x.first] = M[x.first];
+    }
+    for(auto x:S)
+    {
+        if(N.count(x.first))
+        {
+            S[x.first] += N[x.first];
+        }
+    }
+    return S;
+}
+template<class T1, class T2, class T3>
+std::map <T1, T3> F(std::map <T2, T3> M, std::map <T1, T2> N)
+{
+    std::map <T1, T3> S;
+    for(auto x:N)
+    {
+        S[x.first] = M[N[x.first]];
+    }
+    return S;
+}
+int main()
+{
+    //A();
+    std::map <int, int> M;
+    /*M = B();
+    std::map <int, int>::iterator i;
+for (i = M.begin(); i != M.end(); ++i)
+{
+    std::cout << i->first << " -> " << i->second << std::endl;
+}*/
+    //C();
+    std::map <std::string, int> F = { {"Father", 45}, {"Mother", 42},
+    {"Sister", 20}, {"Brother", 15} };
+    std::map <std::string, int> N = { {"Mother", 45}, {"Brother", 42},
+    {"Father", 20}, {"Sister", 15} };
+    for(auto x:D(F,N))
+    {
+        std::cout << x.first << " -> " << x.second << std::endl;;
+    }
+    std::map <int, double> Inner = {{5,5.5},{6,6.5}, {10, 10.5}};
+    std::map <double, int> Ext = {{5.5, 6}, {6.5, 7}, {10.5, 11}};
+   // for(auto x:F(Ext,Inner))
+   typename std::map <T1, T3>::iterator i;
+   for (i= F(Ext,Inner).begin(); i!= F(Ext,Inner).end(); ++i)  // ПРОБЛЕМА !!!
+    {
+        std::cout << i.first << " -> " << i.second << std::endl;;
+    }
+    return 0;
+}
